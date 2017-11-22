@@ -1,0 +1,177 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+#div1 {
+    width: 350px;
+    height: 70px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+}
+body{
+	font-family:verdana;
+}
+[draggable]{
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+	/* Required to make elements draggable in old WebKit */
+  	-khtml-user-drag: element;
+  	-webkit-user-drag: element;
+}
+.column{
+	height: 100px;
+	width: 100px;
+	float:left;
+	border: 1px solid #000000;
+	background-color: #fff;
+	margin-right: 10px;
+	border-radius: 10px;
+	box-shadow: inset 0 0 3px #000;
+	text-align: center;
+	cursor: pointer;
+}
+.column span {
+	font-size:70px;
+	color: #ccc;
+	text-shadow: #000 0 1px;
+	box-shadow: 5px;
+	padding: 5px;
+	
+}
+.column.over {
+  border: 2px dashed #000;
+}
+</style>
+<script>
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+/*function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}*/
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+}
+window.onload = init;
+var cols = null;
+var colDiv;
+var dragSrcEl = null;
+/*
+<div id="columns">
+		
+		<div class="column" draggable="true"><span>B</span></div>
+		<div class="column" draggable="true"><span>C</span></div>
+*/
+function init(){
+	colDiv = document.getElementById('columns');
+    //I want to make this working :)
+	var divD = document.createElement("div");
+	divD.className = "column";
+	divD.draggable = "true";
+	var spanD = document.createElement("span");
+	spanD.appendChild(document.createTextNode("D"));
+	divD.appendChild(spanD);
+	colDiv.appendChild(divD);
+	cols = document.querySelectorAll('#columns .column');
+	cols.forEach(function(col,index){
+		col.addEventListener('dragstart', handleDragStart);
+		//col.addEventListener('drag', handleDrag);
+		col.addEventListener('dragenter', handleDragEnter);
+		col.addEventListener('dragover', handleDragOver);
+		col.addEventListener('dragleave', handleDragLeave);
+		col.addEventListener('drop', handleDrop);
+		col.addEventListener('dragend', handleDragEnd);
+	});
+}
+
+function handleDragStart(e){
+	this.style.opacity = 0.4;
+	dragSrcEl = this;
+	e.dataTransfer.effectAllowed = 'move';
+	e.dataTransfer.setData('text/html', this.innerHTML);
+}
+
+function handleDragOver(e){
+	//if(e.preventDefault){
+		e.preventDefault();
+	//}
+	e.dataTransfer.dropEffect = 'move';
+	
+	return false;
+}
+
+function handleDragEnter(e){
+	this.classList.add('over');
+}
+
+function handleDragLeave(e){
+	this.classList.remove('over');
+}
+
+function handleDrop(e){
+	//if(e.stopPropagation){
+		e.stopPropagation();
+	//}
+	e.preventDefault();	
+	if(dragSrcEl != this){
+		//dragSrcEl.innerHTML = this.innerHTML;
+		//this.innerHTML = e.dataTransfer.getData('text/html');
+		e.target.appendChild(dragSrcEl);
+	}
+	return false;
+}
+
+function handleDragEnd(e){
+	this.style.opacity = 1;
+	[].forEach.call(cols, function(col){
+		col.classList.remove('over');
+	});
+	
+}		
+
+/*[].forEach.call(cols, function(col){
+	col.addEventListener('dragstart', handleDragStart,false);
+	col.addEventListener('drag', handleDrag,false);
+	col.addEventListener('dragenter', handleDragEnter,false);
+	col.addEventListener('dragover', handleDragOver,false);
+	col.addEventListener('dragleave', handleDragLeave,false);
+	col.addEventListener('drop', handleDrop, false);
+	col.addEventListener('dragend', handleDragEnd, false);
+});*/
+</script>
+<link rel="stylesheet" href="css/style.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="js/script.js"></script>
+</head>
+<body>
+
+<p>Drag the W3Schools image into the rectangle:</p>
+<div id="container">
+	<h2>To Do:</h2>
+	<ul contenteditable>
+		<li>Enter item</li>
+	</ul>
+	
+	<a href="javascript:void(0);" id="clear" class="btn">Clear</a>
+	<a href="javascript:void(0);" id="save" class="btn">Save</a>
+	
+</div>
+<div class="containter">
+	<div id="columns">	
+	<div class="column" draggable="true"><span>A</span></div>	
+	<div class="column" draggable="true"><span>B</span></div>	
+	<div class="column" draggable="true"><span>C</span></div>
+</div>
+<!-- div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div-->
+<br>
+<!-- img id="drag1" src="C:\Users\mmishra\Documents\ReleaseNotesimg_logo.gif" draggable="true" ondragover="allowDrop(event)" ondragstart="drag(event)" width="336" height="69"-->
+
+</body>
+</html>

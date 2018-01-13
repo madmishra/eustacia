@@ -1,28 +1,36 @@
 package org.ecc.pmp.model;
 // Generated Jan 3, 2018 1:14:58 AM by Hibernate Tools 5.2.5.Final
 
-import java.math.BigDecimal;
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Home object for domain model class Dept.
- * @see org.ecc.pmp.model.Dept
+ * Home object for domain model class Emp.
+ * @see org.ecc.pmp.model.Emp
  * @author Hibernate Tools
  */
-@Stateless
-public class DeptHome {
+//@Stateless
+@Path("/message")
+@RequestScoped
+public class EmpHome {
 
-	private static final Log log = LogFactory.getLog(DeptHome.class);
+	private static final Log log = LogFactory.getLog(EmpHome.class);
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void persist(Dept transientInstance) {
-		log.debug("persisting Dept instance");
+	public void persist(Emp transientInstance) {
+		log.debug("persisting Emp instance");
 		try {
 			entityManager.persist(transientInstance);
 			log.debug("persist successful");
@@ -32,8 +40,8 @@ public class DeptHome {
 		}
 	}
 
-	public void remove(Dept persistentInstance) {
-		log.debug("removing Dept instance");
+	public void remove(Emp persistentInstance) {
+		log.debug("removing Emp instance");
 		try {
 			entityManager.remove(persistentInstance);
 			log.debug("remove successful");
@@ -43,10 +51,10 @@ public class DeptHome {
 		}
 	}
 
-	public Dept merge(Dept detachedInstance) {
-		log.debug("merging Dept instance");
+	public Emp merge(Emp detachedInstance) {
+		log.debug("merging Emp instance");
 		try {
-			Dept result = entityManager.merge(detachedInstance);
+			Emp result = entityManager.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -54,11 +62,13 @@ public class DeptHome {
 			throw re;
 		}
 	}
-
-	public Dept findById(BigDecimal id) {
-		log.debug("getting Dept instance with id: " + id);
+	@GET
+    @Path("/{id:[0-9][0-9]*}")
+    @Produces(MediaType.APPLICATION_JSON)
+	public Emp findById(@PathParam("id") long id) {
+		log.debug("getting Emp instance with id: " + id);
 		try {
-			Dept instance = entityManager.find(Dept.class, id);
+			Emp instance = entityManager.find(Emp.class, id);
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

@@ -17,3 +17,6 @@
 
 -- You can use this file to load seed data into the database using SQL statements
 insert into Member (id, name, email, phone_number) values (0, 'msdmidhrs', 'mad.smith@mailinator.com', '809571011') 
+insert into DEPT (DEPTNO, DNAME, LOC) values (1, 'RnD', 'BLR')
+insert into EMP (EMPNO, MGR, DEPT,ENAME,JOB,COMM,HIREDATE,SAL) values (20,20,'1','Krish','Analyst',6236,to_date('10-12-2016','DD-MM-YYYY'),3456)
+insert into EMP (EMPNO, MGR, DEPT,ENAME,JOB,COMM,HIREDATE,SAL) values (15,20,'1','MADH','Analyst',6236,to_date('10-12-2016','DD-MM-YYYY'),3456)

@@ -1,7 +1,6 @@
 package org.ecc.pmp.model;
-// Generated Jan 3, 2018 1:14:58 AM by Hibernate Tools 5.2.5.Final
+// Generated Nov 26, 2017 4:50:49 PM by Hibernate Tools 5.2.5.Final
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -18,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "DEPT")
 public class Dept implements java.io.Serializable {
 
-	private BigDecimal deptno;
+	private long deptno;
 	private String dname;
 	private String loc;
 	private Set<Emp> emps = new HashSet<Emp>(0);
@@ -26,11 +25,11 @@ public class Dept implements java.io.Serializable {
 	public Dept() {
 	}
 
-	public Dept(BigDecimal deptno) {
+	public Dept(long deptno) {
 		this.deptno = deptno;
 	}
 
-	public Dept(BigDecimal deptno, String dname, String loc, Set<Emp> emps) {
+	public Dept(long deptno, String dname, String loc, Set<Emp> emps) {
 		this.deptno = deptno;
 		this.dname = dname;
 		this.loc = loc;
@@ -39,16 +38,16 @@ public class Dept implements java.io.Serializable {
 
 	@Id
 
-	@Column(name = "DEPTNO", unique = true, nullable = false)
-	public BigDecimal getDeptno() {
+	@Column(name = "DEPTNO", unique = true, nullable = false, precision = 10, scale = 0)
+	public long getDeptno() {
 		return this.deptno;
 	}
 
-	public void setDeptno(BigDecimal deptno) {
+	public void setDeptno(long deptno) {
 		this.deptno = deptno;
 	}
 
-	@Column(name = "DNAME", length = 4000)
+	@Column(name = "DNAME", length = 896)
 	public String getDname() {
 		return this.dname;
 	}
@@ -57,7 +56,7 @@ public class Dept implements java.io.Serializable {
 		this.dname = dname;
 	}
 
-	@Column(name = "LOC", length = 4000)
+	@Column(name = "LOC", length = 832)
 	public String getLoc() {
 		return this.loc;
 	}
@@ -66,7 +65,7 @@ public class Dept implements java.io.Serializable {
 		this.loc = loc;
 	}
 
-	/*@OneToMany(fetch = FetchType.EAGER, mappedBy = "dept")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "dept")
 	public Set<Emp> getEmps() {
 		return this.emps;
 	}
@@ -74,5 +73,5 @@ public class Dept implements java.io.Serializable {
 	public void setEmps(Set<Emp> emps) {
 		this.emps = emps;
 	}
-*/
+
 }

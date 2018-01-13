@@ -59,17 +59,66 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("text");
     ev.target.appendChild(document.getElementById(data));
 }
+function func(a){
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("GET", a, false);
+	xhttp.setRequestHeader("Content-type", "application/json");
+	xhttp.send();
+	alert('success1');
+	var response = JSON.parse(xhttp.responseText);
+	
+	//response.keys
+	/* xhttp.onreadystatechange = function()
+	{
+		if (this.status == 200) {
+		var response = JSON.parse(this.responseText);
+		alert(response);
+		}
+	}; */
+	var index = [];
+
+	// build the index
+	for (var x in response) {
+	   index.push(x);
+	}
+	alert(index);
+	//alert('success');
+	//alert(response[index[0]]);
+	var demo = document.getElementById('demo');
+	var table = document.createElement("table");
+	alert('success');
+	table.setAttribute("border", "1");
+	var tr = document.createElement("tr");
+	
+	//var txt ="";
+	//txt += "<table><tr>";
+	for(var y in index)	
+		{
+		var th = document.createElement("th");
+		th.innerHTML=index[y];
+		tr.appendChild(th);
+		alert('success2');
+		//txt += "<td>" + index[y] + "</td>";
+		}
+	table.appendChild(tr);
+	demo.appendChild(table);
+	//txt += "</tr></table>";
+	//document.getElementById("demo").innerHTML = txt;
+	return false;
+}
 window.onload = init;
 var cols = null;
 var colDiv;
 var dragSrcEl = null;
-/*
-<div id="columns">
-		
-		<div class="column" draggable="true"><span>B</span></div>
-		<div class="column" draggable="true"><span>C</span></div>
-*/
 function init(){
+
+//var link = document.getElementById('mylink');
+
+//link.onclick = function(url)
+//{
+//alert(url);
+//return false;
+//}
 	colDiv = document.getElementById('columns');
     //I want to make this working :)
 	var divD = document.createElement("div");
@@ -151,11 +200,11 @@ function handleDragEnd(e){
 <script src="js/script.js"></script>
 </head>
 <body>
-
+<a id="mylink" onclick="func('${request.contextPath}/rest/message/15');return false;" href="${request.contextPath}/rest/message/15">linky</a>
 <p>Drag the W3Schools image into the rectangle:</p>
 <div id="container">
 	<h2>To Do:</h2>
-	<ul contenteditable>
+	<ul contenteditable="true">
 		<li>Enter item</li>
 	</ul>
 	
@@ -169,9 +218,10 @@ function handleDragEnd(e){
 	<div class="column" draggable="true"><span>B</span></div>	
 	<div class="column" draggable="true"><span>C</span></div>
 </div>
+</div>
 <!-- div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div-->
-<br>
+<br/>
 <!-- img id="drag1" src="C:\Users\mmishra\Documents\ReleaseNotesimg_logo.gif" draggable="true" ondragover="allowDrop(event)" ondragstart="drag(event)" width="336" height="69"-->
-
+<p id="demo"></p>
 </body>
 </html>

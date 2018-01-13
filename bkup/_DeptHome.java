@@ -1,10 +1,16 @@
 package org.ecc.pmp.model;
-// Generated Jan 3, 2018 1:14:58 AM by Hibernate Tools 5.2.5.Final
+// Generated Nov 12, 2017 10:26:32 PM by Hibernate Tools 5.2.5.Final
 
-import java.math.BigDecimal;
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -13,7 +19,9 @@ import org.apache.commons.logging.LogFactory;
  * @see org.ecc.pmp.model.Dept
  * @author Hibernate Tools
  */
-@Stateless
+//@Stateless
+@Path("/message")
+@RequestScoped
 public class DeptHome {
 
 	private static final Log log = LogFactory.getLog(DeptHome.class);
@@ -54,8 +62,10 @@ public class DeptHome {
 			throw re;
 		}
 	}
-
-	public Dept findById(BigDecimal id) {
+	@GET
+    @Path("/{deptid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Dept findById(@PathParam("deptid") int id) {
 		log.debug("getting Dept instance with id: " + id);
 		try {
 			Dept instance = entityManager.find(Dept.class, id);

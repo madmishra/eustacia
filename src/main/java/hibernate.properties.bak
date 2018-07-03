@@ -1,0 +1,10 @@
+hibernate.connection.driver_class = oracle.jdbc.OracleDriver
+hibernate.connection.url = jdbc:oracle:thin:@localhost:1521:XE
+hibernate.connection.username = mmishra
+hibernate.connection.password = Catch_22
+hibernate.c3p0.min_size=5
+hibernate.c3p0.max_size=20
+hibernate.c3p0.timeout=1800
+hibernate.c3p0.max_statements=50
+java.naming.factory.initial = org.jboss.as.naming.InitialContextFactory
+java.naming.provider.url=jnp://localhost:1099

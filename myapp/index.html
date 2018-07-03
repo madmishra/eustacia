@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<div id="my_view">
+<label for="name">Enter name:</label>
+  <input type="text" v-model="name"/>
+  <label for="age">Enter age:</label>
+  <input type="text" v-model="age"/>
+  <p>{{name}} is {{age}} years old.</p>
+  <custom-component1 fifa="MaKiAankh"></custom-component1>
+  <custom-component1 v-bind:fifa="name" v-on:inputevent="name=$event"></custom-component1>
+  <custom-component2 v-model="name"></custom-component2>
+  <br><br>
+  <customcompoment-7></customcompoment-7>
+  <button-mad></button-mad>
+  <div :style="{ fontSize: postFontSize + 'em' }">
+  <!-- <blog v-on:enlarge="postFontSize+=0.1" title="halla"></blog> -->
+  <blog v-on:enlarge="postFontSize+=0.1" v-for="post in posts" v-bind:key="post.key" v-bind:title="post.title"></blog>
+  </div>
+  <router-link to="/route1">Route1</router-link>
+  <router-link to="/route2">Route2</router-link>
+   <router-link to="/route3/23">Route3</router-link>
+  <!-- <a v-link="{ path:'/route1'}">Route1</a>
+  <a v-link="{ path:'/route2'}">Route2</a> -->
+  <router-view></router-view>
+</div>
+<script src="./dist/build.js"/>
+<script>
+
+</script>
+</html>
